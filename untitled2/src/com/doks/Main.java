@@ -18,7 +18,7 @@ public class Main {
                     }
                     System.out.print("\nChoose: ");
                     str = in.next();
-                    product = teaProdFunc(str, in);
+                    product = teaProducersFunc(str, in);
                     break main_c;
                 case "Coffee":
                     System.out.print("What producer:");
@@ -27,7 +27,7 @@ public class Main {
                     }
                     System.out.print("\nChoose: ");
                     str = in.next();
-                    product = coffeeProdFunc(str, in);
+                    product = coffeeProducersFunc(str, in);
                     break main_c;
                 default:
                     System.out.print("Try again: ");
@@ -37,7 +37,7 @@ public class Main {
         return product;
     }
 
-    static Product teaProdFunc(String s, Scanner in) {
+    static Product teaProducersFunc(String s, Scanner in) {
         Product tea = null;
         String str = s;
         main_c: while(true) {
@@ -45,12 +45,12 @@ public class Main {
                 case "Grinfield":
                     System.out.print("Black tea or Green?: ");
                     str = in.next();
-                    tea = GrinFunc(str, in);
+                    tea = teaFunc(str, in, new Grinfield());
                     break main_c;
                 case "Tess":
                     System.out.print("Black tea or Green?: ");
                     str = in.next();
-                    tea = TessFunc(str, in);
+                    tea = teaFunc(str, in, new Tess());
                     break main_c;
                 default: System.out.print("Try again: "); str = in.next();
             }
@@ -58,7 +58,7 @@ public class Main {
         return tea;
     }
 
-    static Product coffeeProdFunc(String s, Scanner in) {
+    static Product coffeeProducersFunc(String s, Scanner in) {
         String str = s;
         Product coffee = null;
         main_c: while(true) {
@@ -66,12 +66,12 @@ public class Main {
                 case "Nescafe":
                     System.out.print("Milky coffee or Black?: ");
                     str = in.next();
-                    coffee = NescaFunc(str, in);
+                    coffee = coffeeFunc(str, in, new Nescafe());
                     break main_c;
                 case "Jardin":
                     System.out.print("Milky coffee or Black?: ");
                     str = in.next();
-                    coffee = JardinFunc(str, in);
+                    coffee = coffeeFunc(str, in, new Jardin());
                     break main_c;
                 default: System.out.print("try again: "); str = in.next();
             }
@@ -79,8 +79,8 @@ public class Main {
         return coffee;
     }
 
-    static Product GrinFunc(String s, Scanner in) {
-        TeaProducer tp = new Grinfield();
+    static Product teaFunc(String s, Scanner in, TeaProducer tp) {
+        //TeaProducer tp = new Grinfield();
         Product tea = null;
         String str = s;
         main_operator: while(true) {
@@ -129,58 +129,8 @@ public class Main {
 
     }
 
-    static Product TessFunc(String s, Scanner in) {
-        TeaProducer tp = new Tess();
-        Product tea = null;
-        String str = s;
-        main_operator: while(true) {
-            switch (str) {
-                case "Black":
-                    System.out.println("With sugar?(y/n)");
-                    while (true) {
-                        switch (str) {
-                            case "y":
-                                tea = tp.constructBlackTeaWithSugar(10.00);
-                                break main_operator;
-                            case "n":
-                                tea = tp.constructBlackTea(9.50);
-                                break main_operator;
-                            default:
-                                System.out.print("Try again: ");
-                                str = in.next();
-                                break;
-                        }
-                    }
-
-                case "Green":
-                    System.out.println("With sugar?(y/n)");
-                    while (true) {
-                        switch (str) {
-                            case "y":
-                                tea = tp.constructGreenTeaWithSugar(10.00);
-                                break main_operator;
-                            case "n":
-                                tea = tp.constructGreenTea(9.50);
-                                break main_operator;
-                            default:
-                                System.out.print("Try again: ");
-                                str = in.next();
-                                break;
-                        }
-                    }
-                default:
-                    System.out.print("Try again: ");
-                    str = in.next();
-                    break;
-
-            }
-        }
-        return tea;
-
-    }
-
-    static Product NescaFunc(String s, Scanner in) {
-        CoffeeProducer cp = new Nescafe();
+    static Product coffeeFunc(String s, Scanner in, CoffeeProducer cp) {
+        //CoffeeProducer cp = new Nescafe();
         Product coffee = null;
         String str = s;
         main_operator: while(true) {
@@ -226,55 +176,6 @@ public class Main {
         return coffee;
 
     }
-
-    static Product JardinFunc(String s, Scanner in) {
-        CoffeeProducer cp = new Jardin();
-        Product coffee = null;
-        String str = s;
-        main_operator: while(true) {
-            switch (str) {
-                case "Milky":
-                    System.out.println("With sugar?(y/n)");
-                    while(true) {
-                        switch (str) {
-                            case "y":
-                                coffee = cp.constructMilkCoffeeWithSugar(10.00);
-                                break main_operator;
-                            case "n":
-                                coffee = cp.constructMilkCoffee(9.50);
-                                break main_operator;
-                            default:
-                                System.out.print("Try again: ");
-                                str = in.next();
-                                break;
-                        }
-                    }
-                case "Black":
-                    System.out.println("With sugar?(y/n)");
-                    while(true) {
-                        switch (str) {
-                            case "y":
-                                coffee = cp.constructBlackCoffee(10.00, true);
-                                break main_operator;
-                            case "n":
-                                coffee = cp.constructBlackCoffee(9.50);
-                                break main_operator;
-                            default:
-                                System.out.print("Try again: ");
-                                str = in.next();
-                                break;
-                        }
-                    }
-                default:
-                    System.out.print("Try again: ");
-                    str = in.next();
-                    break;
-            }
-        }
-        return coffee;
-
-    }
-
 
     public static void main(String[] args) {
 
@@ -288,7 +189,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
         String s = in.next();
         Product product = productFunc(s, in);
-        System.out.println(product.getName()+(product.isSugar()?" with sugar":"")+" for " + product.getPrice()+"$");
+        System.out.println(product.getName() + (product.isSugar()?" with sugar":"") + " for " + product.getPrice()+"$");
         return;
     }
 }
